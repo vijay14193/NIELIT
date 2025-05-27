@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SearchPro</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      color: #4285f4;
+      margin-bottom: 30px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      padding: 10px 15px;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      flex: 1;
+      font-size: 16px;
+      padding-left: 5px;
+    }
+
+    .clear-btn {
+      cursor: pointer;
+      font-size: 20px;
+      color: #999;
+      padding-left: 10px;
+    }
+
+    .suggestions {
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      background-color: white;
+      text-align: left;
+      overflow: hidden;
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 10px 15px;
+      font-size: 16px;
+      color: #1a73e8;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .suggestion-item:hover {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="logo">SearchPro</h1>
+
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Search..."
+        id="searchInput"
+        oninput="filterSuggestions()"
+      />
+      <span class="clear-btn" onclick="clearSearch()">×</span>
+    </div>
+
+    <div class="suggestions" id="suggestionsBox"></div>
+  </div>
+
+  <script>
+    const suggestions = [
+      "react tutorial",
+      "react hooks examples",
+      "react native vs flutter",
+      "react performance optimization",
+      "react state management",
+      "react router dom",
+      "react query tutorial",
+      "react typescript guide",
+      "react best practices",
+      "react testing library"
+    ];
+
+    const suggestionsBox = document.getElementById("suggestionsBox");
+    const searchInput = document.getElementById("searchInput");
+
+    function clearSearch() {
+      searchInput.value = "";
+      suggestionsBox.style.display = "none";
+    }
+
+    function filterSuggestions() {
+      const value = searchInput.value.toLowerCase();
+      const filtered = suggestions.filter(item =>
+        item.toLowerCase().includes(value)
+      );
+
+      if (value === "" || filtered.length === 0) {
+        suggestionsBox.style.display = "none";
+        return;
+      }
+
+      suggestionsBox.innerHTML = filtered
+        .map(item => `<div class="suggestion-item">🔍 ${item}</div>`)
+        .join("");
+
+      suggestionsBox.style.display = "block";
+    }
+  </script>
+</body>
+</html>
