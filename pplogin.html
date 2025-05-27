@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourism Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://images.unsplash.com/photo-1442570468985-f63ed5de9086?w=500&auto=format&fit=crop&q=60') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 380px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .link {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main-container">
+    <!-- Login Form -->
+    <div id="loginForm">
+        <img src="https://cdn-icons-png.flaticon.com/512/1966/1966471.png" alt="Logo" style="width:80px;margin-bottom:20px;">
+        <h2>Welcome to Tour&Travels</h2>
+        <div class="error-message" id="loginError"></div>
+        <form id="login" method="POST" action="login.php">
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" name="username" id="loginUsername" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password"  name="password" id="loginPassword" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <span class="link" onclick="showResetPassword()">Forgot Password?</span>
+        <span class="link" onclick="showCreateAccount()">Create Account</span>
+    </div>
+
+    <!-- Reset Password Form -->
+    <div id="resetPasswordForm" style="display:none;">
+        <h2>Reset Password</h2>
+        <form id="resetForm">
+            <input type="text" id="resetUsername" placeholder="Enter Username" required>
+            <input type="password" id="newPassword" placeholder="Enter New Password" required>
+            <input type="password" id="confirmNewPassword" placeholder="Confirm New Password" required>
+            <button type="submit">Reset Password</button>
+        </form>
+        <span class="link" onclick="showLogin()">Back to Login</span>
+    </div>
+
+    <!-- Create Account Form -->
+    <div id="createAccountForm" style="display:none;">
+        <h2>Create Account</h2>
+        <div class="error-message" id="createError"></div>
+        <form id="createForm" method="POST" action="register.php">
+            <input type="text" name="name" id="createName" placeholder="Full Name" required>
+            <input type="tel" name="phone" id="createPhone" placeholder="Phone Number" required>
+            <input type="text" name="username" id="createUsername" placeholder="Username" required>
+            <input type="email" name="email" id="createEmail" placeholder="Email" required>
+            <input type="password" name="password" id="createPassword" placeholder="Password" required>
+            <input type="password" name="confirm_password" id="createConfirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Create Account</button>
+        </form>
+        <span class="link" onclick="showLogin()">Back to Login</span>
+    </div>
+</div>
+
+<script>
+    function showResetPassword() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('resetPasswordForm').style.display = 'block';
+        document.getElementById('createAccountForm').style.display = 'none';
+        document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1470&q=80')";
+    }
+
+    function showCreateAccount() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('resetPasswordForm').style.display = 'none';
+        document.getElementById('createAccountForm').style.display = 'block';
+        document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80')";
+    }
+
+    function showLogin() {
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('resetPasswordForm').style.display = 'none';
+        document.getElementById('createAccountForm').style.display = 'none';
+        document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1442570468985-f63ed5de9086?w=500&auto=format&fit=crop&q=60')";
+    }
+
+    document.getElementById('login').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        if (username === '' || password === '') {
+            document.getElementById('loginError').textContent = 'Please fill in all fields';
+            document.getElementById('loginError').style.display = 'block';
+        } else {
+            alert('Logged in successfully!');
+            document.getElementById('loginError').style.display = 'none';
+        }
+    });
+
+    document.getElementById('resetForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmNewPassword').value;
+        if (newPassword !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+        if (newPassword.length < 6) {
+            alert('Password should be at least 6 characters.');
+            return;
+        }
+        alert('Password reset successful!');
+        showLogin();
+    });
+
+    document.getElementById('createForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('createName').value.trim();
+        const phone = document.getElementById('createPhone').value.trim();
+        const username = document.getElementById('createUsername').value.trim();
+        const email = document.getElementById('createEmail').value.trim();
+        const password = document.getElementById('createPassword').value;
+        const confirmPassword = document.getElementById('createConfirmPassword').value;
+        const errorDiv = document.getElementById('createError');
+
+        if (name.length < 2) {
+            errorDiv.textContent = 'Name must be at least 2 characters.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        if (!/^\d{10}$/.test(phone)) {
+            errorDiv.textContent = 'Phone number must be 10 digits.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        if (username.length < 3) {
+            errorDiv.textContent = 'Username must be at least 3 characters.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errorDiv.textContent = 'Invalid email format.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        if (password.length < 6) {
+            errorDiv.textContent = 'Password must be at least 6 characters.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        if (password !== confirmPassword) {
+            errorDiv.textContent = 'Passwords do not match.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        alert('Account created successfully! Welcome, ' + name + '!');
+        errorDiv.style.display = 'none';
+        showLogin();
+    });
+</script>
+
+</body>
+</html>
